@@ -59,8 +59,17 @@ namespace UnityStandardAssets.Vehicles.Ball
         }
 
 
-        private void FixedUpdate()
-        {
+		public float speed;
+
+		void FixedUpdate () 
+		{
+			//Movement Key
+			float xMove = Input.GetAxis ("Horizontal");
+			float ZMove = Input.GetAxis ("Vertical");
+
+			//Movement By Rolling
+			move = new Vector3 (xMove * speed * Time.deltaTime, 0, ZMove * speed * Time.deltaTime);
+
             // Call the Move function of the ball controller
             ball.Move(move, jump);
             jump = false;

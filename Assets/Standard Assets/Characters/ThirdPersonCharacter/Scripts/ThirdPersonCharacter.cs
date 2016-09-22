@@ -164,19 +164,19 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			// the anim speed multiplier allows the overall speed of walking/running to be tweaked in the inspector,
 			// which affects the movement speed because of the root motion.
-			if (m_IsGrounded && move.magnitude > 0)
-			{
-				m_Animator.speed = m_AnimSpeedMultiplier;
-
-				if (rushing) {
-					m_Animator.speed *= 2.0f;
-				}
-			}
-			else
-			{
-				// don't use that while airborne
-				m_Animator.speed = 1;
-			}
+//			if (m_IsGrounded && move.magnitude > 0)
+//			{
+//				m_Animator.speed = m_AnimSpeedMultiplier;
+//
+//				if (rushing) {
+//					m_Animator.speed *= 2.0f;
+//				}
+//			}
+//			else
+//			{
+//				// don't use that while airborne
+//				m_Animator.speed = 1;
+//			}
 		}
 
 
@@ -196,7 +196,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			if (jump && !crouch && m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
 			{
 				// jump!
-				m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z);
+				// m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z);
+				m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, -10.0f, m_Rigidbody.velocity.z);
 				m_IsGrounded = false;
 				m_Animator.applyRootMotion = false;
 				m_GroundCheckDistance = 0.1f;
