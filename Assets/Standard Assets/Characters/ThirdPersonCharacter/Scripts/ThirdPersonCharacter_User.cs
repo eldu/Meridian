@@ -5,7 +5,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 	[RequireComponent(typeof(Rigidbody))]
 	[RequireComponent(typeof(CapsuleCollider))]
 	[RequireComponent(typeof(Animator))]
-	public class ThirdPersonCharacter : MonoBehaviour
+	public class ThirdPersonCharacter_User : MonoBehaviour
 	{
 		[SerializeField] float m_MovingTurnSpeed = 360;
 		[SerializeField] float m_StationaryTurnSpeed = 180;
@@ -146,19 +146,17 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_Animator.SetFloat("JumpLeg", jumpLeg);
 			}
 
-			if (GetComponent<ThirdPersonUserControl>()) {
-				if (Input.GetKeyDown ("r") && Time.time > nextRush) {
-					rushStart = Time.time;
-					rushing = true;
+			if (Input.GetKeyDown ("r") && Time.time > nextRush) {
+				rushStart = Time.time;
+				rushing = true;
 
-					print ("r pressed");
-				}
-
-				if (rushing && Time.time - rushStart > rushLasts) {
-					nextRush = Time.time + rushWait;
-					rushing = false;
-				} 
+				print("r pressed");
 			}
+
+			if (rushing && Time.time - rushStart > rushLasts) {
+				nextRush = Time.time + rushWait;
+				rushing = false;
+			} 
 
 
 
