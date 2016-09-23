@@ -5,20 +5,31 @@ public class PlayerEvents : MonoBehaviour {
 	ColumnObjectives[] cols;
 	Animator anim;
 	bool win;
+	Time time;
+	bool flatland;
 
 	public Camera cam;
+	public Camera flat;
 	public GameObject enemy;
+	public GameObject land;
+	public bool stopGeneration;
 
 	// Use this for initialization
 	void Start () {
+		flatland = false;
 		win = false;
+		stopGeneration = false;
 	}
 
 	void Awake() {
+		cam.GetComponent<Camera> ().enabled = true;
+		flat.GetComponent<Camera> ().enabled = false;
 		anim = GetComponent<Animator> ();
 		cols = FindObjectsOfType(typeof(ColumnObjectives)) as ColumnObjectives[];
+	}
 
-		print ("Number of Columns: ");
+	IEnumerator waitForFive() {
+		yield return new WaitForSeconds(5);
 	}
 
 	// Update is called once per frame
@@ -44,7 +55,29 @@ public class PlayerEvents : MonoBehaviour {
 		}
 
 
-			
+//		if (flatland) {
+//			cam.GetComponent<Camera> ().enabled = true;
+//			flat.GetComponent<Camera> ().enabled = false;
+//			flatland = false;
+//		}
+
+		if (Input.GetKeyDown ("t")) {
+			flatland = true;
+			cam.GetComponent<Camera> ().enabled = false;
+			flat.GetComponent<Camera> ().enabled = true;
+
+			//land.SetActive (false);
+
+
+			land.GetComponent<GenerateInfinite> ().hideTiles ();
+			stopGeneration = true;
+
+			Invoke("waitforflat", 2);
+
+		}
+
+
+//			
 
 //		if (Input.GetKeyDown ("r")) {
 //			GameObject.Find ("OnScreen").GetComponent<Animator> ().SetTrigger ("recharge");
@@ -61,6 +94,27 @@ public class PlayerEvents : MonoBehaviour {
 //			nextRush = Time.time + rushWait;
 //			rushing = false;
 //		}
+	}
+
+	void waitforflat() {
+		//if (flatland) {
+		//land.SetActive (true);
+
+			cam.GetComponent<Camera> ().enabled = true;
+			flat.GetComponent<Camera> ().enabled = false;
+			flatland = false;
+			
+			stopGeneration = false;
+		land.GetComponent<GenerateInfinite> ().showTiles ();
+
+			Invoke ("jumpALittle", 0.3f);
+
+			//Time.timeScale = 1; 
+		//}
+	}
+
+	void jumpALittle() {
+		transform.position += new Vector3 (0, 10, 0);
 	}
 
 	void OnCollisionEnter (Collision col)

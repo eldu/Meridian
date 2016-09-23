@@ -11,8 +11,8 @@ namespace UnityStandardAssets.Utility
 		Transform target; //the enemy's target
 		float moveSpeed = 1.2f; //move speed
 		float rotationSpeed = 1.2f; //speed of turning
-		float range = 10f;
-		float range2 = 10f;
+		float range = 100f;
+		float range2 = 100f;
 		float stop = 0;
 		Transform myTransform; //current transform data of this enemy
 
